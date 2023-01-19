@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:pokedex/controllers/pokedex/PokedexController.dart';
 import 'package:get/get.dart';
 import 'package:pokedex/models/pokemon.dart';
+import 'package:pokedex/modules/pokedex/components/evolution_pokemon.dart';
+import 'package:pokedex/modules/pokedex/components/stats_pokemon.dart';
 import 'package:pokedex/modules/pokedex/components/title_detail_pokemon.dart';
 import 'package:pokedex/utils/color.dart';
 import 'package:pokedex/modules/pokedex/components/about_pokemon.dart';
@@ -13,6 +15,9 @@ class DetailPokemon extends GetView<PokedexController> {
   @override
   Widget build(BuildContext context) {
     List<Widget> mywidgets = [];
+
+    //controller.startAnimaation();
+
     for (var element in pokemon.types!) {
       mywidgets.add(Container(
         margin: EdgeInsets.only(bottom: 6, right: 10),
@@ -38,6 +43,11 @@ class DetailPokemon extends GetView<PokedexController> {
       ));
     }
 
+    // late final Animation<double> _animation = CurvedAnimation(
+    //   parent: controller.animationController,
+    //   curve: Curves.linear,
+    // );
+
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: AppBar(
@@ -54,17 +64,25 @@ class DetailPokemon extends GetView<PokedexController> {
         elevation: 0,
       ),
       body: Container(
-        color: ColorPokemon.set("${pokemon.species!.color}"),
+        color: ColorPokemon.set("${pokemon.species!.color!.name}"),
         child: Stack(
           alignment: Alignment.bottomCenter,
           children: [
             Positioned(
-              top: 150,
-              right: -35,
+              top: 180,
               child: Opacity(
                 opacity: 0.2,
+                // child: RotationTransition(
+                //   turns: _animation,
+                //   child: Image.asset(
+                //     width: Get.width - 130,
+                //     'assets/images/background/bg.png',
+                //     fit: BoxFit.contain,
+                //   ),
+                // ),
+
                 child: Image.asset(
-                  width: Get.width - 160,
+                  width: Get.width - 130,
                   'assets/images/background/bg.png',
                   fit: BoxFit.contain,
                 ),
@@ -83,61 +101,69 @@ class DetailPokemon extends GetView<PokedexController> {
               height: Get.height / 2 + 15,
             ),
             ImagePokemon(pokemon: pokemon),
-            Container(
-              height: Get.height / 2,
-              child: Padding(
-                padding: const EdgeInsets.only(top: 16, left: 20, right: 20),
-                child: DefaultTabController(
-                  length: 4,
-                  initialIndex: 0,
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: const [
-                      TabBar(
-                        labelPadding: EdgeInsets.symmetric(horizontal: 20),
-                        isScrollable: true,
-                        unselectedLabelColor: Colors.grey,
-                        labelColor: Colors.black,
-                        indicatorColor: Colors.black,
-                        tabs: [
-                          Tab(
-                            height: 70,
-                            text: "About",
-                          ),
-                          Tab(
-                            height: 70,
-                            text: "Base Stats",
-                          ),
-                          Tab(
-                            height: 70,
-                            text: "Evolution",
-                          ),
-                          Tab(
-                            height: 70,
-                            text: "Moves",
-                          )
-                        ],
-                      ),
-                      Expanded(
-                        child: TabBarView(children: [
-                          About(),
-                          Center(
-                            child: Text("data"),
-                          ),
-                          Center(
-                            child: Text("data"),
-                          ),
-                          Center(
-                            child: Text("data"),
-                          ),
-                        ]),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            ),
+            TabPokemon(),
           ],
+        ),
+      ),
+    );
+  }
+}
+
+class TabPokemon extends StatelessWidget {
+  const TabPokemon({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: Get.height / 2,
+      width: Get.width,
+      child: Padding(
+        padding: const EdgeInsets.only(top: 14, left: 25, right: 25),
+        child: DefaultTabController(
+          length: 4,
+          initialIndex: 0,
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              TabBar(
+                labelPadding: EdgeInsets.symmetric(horizontal: 20),
+                isScrollable: true,
+                unselectedLabelColor: Colors.grey,
+                labelColor: Colors.black,
+                indicatorColor: Colors.black,
+                tabs: [
+                  Tab(
+                    height: 70,
+                    text: "About",
+                  ),
+                  Tab(
+                    height: 70,
+                    text: "Base Stats",
+                  ),
+                  Tab(
+                    height: 70,
+                    text: "Evolution",
+                  ),
+                  Tab(
+                    height: 70,
+                    text: "Moves",
+                  )
+                ],
+              ),
+              Expanded(
+                child: TabBarView(children: [
+                  About(),
+                  Stats(),
+                  Evolution(),
+                  Center(
+                    child: Text("data"),
+                  ),
+                ]),
+              ),
+            ],
+          ),
         ),
       ),
     );
@@ -155,10 +181,10 @@ class ImagePokemon extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Positioned(
-      top: (Get.height / 2) - 650,
+      top: (Get.height / 2) - 600,
       bottom: 0,
       child: CachedNetworkImage(
-        width: (Get.width / 2) + 70,
+        width: (Get.width / 2) + 60,
         imageUrl: "${pokemon.sprites!.other!.officialArtwork!.frontDefault}",
         placeholder: (context, url) {
           return Container();

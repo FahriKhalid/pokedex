@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -23,6 +25,7 @@ class ListGridPokedex extends StatelessWidget {
         List<Widget> mywidgets = [];
         Pokemon? pokemon = snapshot.data;
 
+        log("RESULT = ${pokemon?.id}");
         if (pokemon != null) {
           for (var element in pokemon.types!) {
             mywidgets.add(Container(
@@ -38,7 +41,7 @@ class ListGridPokedex extends StatelessWidget {
                   child: Container(
                     margin: EdgeInsets.symmetric(horizontal: 20),
                     child: Text(
-                      "${element!.type!.name}",
+                      "${element?.type?.name}",
                       style: const TextStyle(
                         color: Colors.white,
                         fontSize: 25,
@@ -52,7 +55,7 @@ class ListGridPokedex extends StatelessWidget {
         }
 
         return Material(
-          color: ColorPokemon.set("${pokemon?.species!.color}"),
+          color: ColorPokemon.set("${pokemon?.species?.color?.name}"),
           borderRadius: BorderRadius.circular(15),
           child: InkWell(
             borderRadius: BorderRadius.circular(15),
@@ -75,7 +78,7 @@ class ListGridPokedex extends StatelessWidget {
                       ),
                     ),
                     right: -5,
-                    bottom: -35,
+                    bottom: -10,
                   ),
                   Positioned(
                     right: 10,
@@ -84,7 +87,7 @@ class ListGridPokedex extends StatelessWidget {
                       width: 70,
                       height: 70,
                       imageUrl:
-                          "${pokemon?.sprites!.other!.officialArtwork!.frontDefault}",
+                          "${pokemon?.sprites?.other?.officialArtwork?.frontDefault}",
                       placeholder: (context, url) {
                         return Container();
                       },

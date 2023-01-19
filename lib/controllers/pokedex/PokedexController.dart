@@ -33,7 +33,7 @@ class PokedexController extends GetxController {
         listPokedex.add(element!);
       }
 
-      pokedex = listPokemon; 
+      pokedex = listPokemon;
       isNextLoading.value = false;
       return result;
     } catch (e) {

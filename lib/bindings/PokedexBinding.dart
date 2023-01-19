@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:pokedex/controllers/pokedex/EvolutionController.dart';
 import 'package:pokedex/controllers/pokedex/PokedexController.dart';
 import 'package:pokedex/controllers/pokedex/PokemonController.dart';
 import 'package:pokedex/controllers/pokedex/SpeciesController.dart';
@@ -14,6 +15,9 @@ class PokedexBinding extends Bindings {
     );
     Get.lazyPut<SpeciesController>(
       () => SpeciesController(),
+    );
+    Get.lazyPut<EvolutionController>(
+      () => EvolutionController(),
     );
   }
 }
