@@ -37,22 +37,22 @@ class Result {
   Result({
     this.name,
     this.url,
-    //this.pokemon,
+    this.pokemon,
   });
 
   String? name;
   String? url;
-  //Pokemon? pokemon;
+  Pokemon? pokemon;
 
   factory Result.fromJson(Map<String, dynamic> json) => Result(
         name: json["name"],
         url: json["url"],
-        //pokemon: null
+        pokemon: null
       );
 
   Map<String, dynamic> toJson() => {
         "name": name,
         "url": url,
-        //"pokemon" : pokemon!.toJson()
+        "pokemon" : pokemon!.toJson()
       };
 }

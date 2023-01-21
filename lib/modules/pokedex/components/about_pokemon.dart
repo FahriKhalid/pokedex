@@ -24,8 +24,20 @@ class About extends GetView<PokemonController> {
       egg_groups.add(element?.name);
     }
 
-    var desc = pokemon.species?.flavorTextEntries?[0]!.flavorText;
-    var desc2 = pokemon.species?.flavorTextEntries?[2]!.flavorText;
+    String desc = "";
+    var descriptions = pokemon.species?.flavorTextEntries
+        ?.where((el) => el?.language?.name == 'en');
+    if (descriptions != null) {
+      for (var i = 0; i < descriptions.length; i++) {
+        var string1 =
+            descriptions.elementAt(i)?.flavorText?.replaceAll("\n", " ") ?? "";
+        desc += string1;
+
+        if (i == 0) {
+          break;
+        }
+      }
+    }
 
     return Container(
       child: SingleChildScrollView(
@@ -34,10 +46,8 @@ class About extends GetView<PokemonController> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             SizedBox(height: 20),
-            Text(
-                "${desc!.replaceAll("\n", " ") + " " + desc2!.replaceAll("\n", " ")}"),
+            Text("${desc}"),
             SizedBox(height: 10),
-            ListAbout(title: "Seed", value: pokemon.species!.genera![7]!.genus),
             ListAbout(title: "Height", value: pokemon.height.toString()),
             ListAbout(title: "Weight", value: pokemon.weight.toString()),
             ListAbout(title: "Abilities", value: abilities.join(", ")),

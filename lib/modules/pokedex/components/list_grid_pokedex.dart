@@ -20,13 +20,12 @@ class ListGridPokedex extends StatelessWidget {
     PokemonController pokemonController = Get.find();
     List<Widget> mywidgets = [];
 
-    return FutureBuilder<Pokemon>(
-      future: pokemonController.get("${item.url}"),
+    return FutureBuilder<Pokemon?>(
+      future: pokemonController.get("${item.name}"),
       builder: (context, snapshot) {
         List<Widget> mywidgets = [];
         Pokemon? pokemon = snapshot.data;
 
-        log("RESULT = ${pokemon?.id}");
         if (pokemon != null) {
           for (var element in pokemon.types!) {
             mywidgets.add(Container(
@@ -57,6 +56,7 @@ class ListGridPokedex extends StatelessWidget {
 
         return Material(
           color: ColorPokemon.set("${pokemon?.species?.color?.name}"),
+          elevation: 4,
           borderRadius: BorderRadius.circular(15),
           child: InkWell(
             borderRadius: BorderRadius.circular(15),

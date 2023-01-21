@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:pokedex/controllers/pokedex/PokedexController.dart';
 import 'package:pokedex/models/list_pokemon.dart';
 import 'package:get/get.dart';
@@ -66,12 +67,6 @@ class Pokedex extends GetView<PokedexController> {
                           padding:
                               EdgeInsets.only(bottom: 60, left: 20, right: 20),
                           controller: controller.scrollController,
-                          itemBuilder: (context, index) {
-                            Result pokemon =
-                                pokedexController.listPokedex[index]!;
-
-                            return ListGridPokedex(item: pokemon);
-                          },
                           itemCount: pokedexController.listPokedex.length,
                           gridDelegate:
                               const SliverGridDelegateWithFixedCrossAxisCount(
@@ -79,6 +74,21 @@ class Pokedex extends GetView<PokedexController> {
                                   mainAxisSpacing: 10,
                                   crossAxisCount: 2,
                                   childAspectRatio: 1.4),
+                          itemBuilder: (context, index) {
+                            Result pokemon =
+                                pokedexController.listPokedex[index]!;
+
+                            return AnimationConfiguration.staggeredGrid(
+                              position: 10,
+                              columnCount: 2,
+                              duration: const Duration(milliseconds: 375),
+                              child: ScaleAnimation(
+                                scale: 0.5,
+                                child: FadeInAnimation(
+                                    child: ListGridPokedex(item: pokemon)),
+                              ),
+                            );
+                          },
                         ),
                         Positioned(
                           width: Get.width,

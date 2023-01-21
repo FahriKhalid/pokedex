@@ -12,9 +12,13 @@ class TitleDetailPokemon extends StatelessWidget {
 
   final Pokemon pokemon;
   final List<Widget> mywidgets;
+  
 
   @override
   Widget build(BuildContext context) {
+
+    var genus = pokemon.species?.genera?.where((el) => el?.language?.name == 'en').first?.genus;
+
     return Padding(
       padding: const EdgeInsets.only(left: 20, right: 20, top: 80),
       child: Column(
@@ -53,7 +57,7 @@ class TitleDetailPokemon extends StatelessWidget {
                         fontSize: 17),
                   ),
                   Text(
-                    "${pokemon.species?.genera?[7]?.genus}",
+                    "${genus}",
                     style: TextStyle(color: Colors.white54, fontSize: 16),
                   ),
                 ],
