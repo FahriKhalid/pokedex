@@ -290,12 +290,14 @@ class Species {
   factory Species.fromJson(Map<String, dynamic> json) => Species(
         baseHappiness: json["base_happiness"],
         captureRate: json["capture_rate"],
-        color: Form.fromJson(json["color"]),
+        color: json["color"] == null ? null : Form.fromJson(json["color"]),
         eggGroups: json["egg_groups"] == null
             ? []
             : List<Form?>.from(
                 json["egg_groups"]!.map((x) => Form.fromJson(x))),
-        evolutionChain: EvolutionChain.fromJson(json["evolution_chain"]),
+        evolutionChain: json["evolution_chain"] == null
+            ? null
+            : EvolutionChain.fromJson(json["evolution_chain"]),
         evolvesFromSpecies: json["evolves_from_species"],
         flavorTextEntries: json["flavor_text_entries"] == null
             ? []
@@ -309,9 +311,14 @@ class Species {
         genera: json["genera"] == null
             ? []
             : List<Genus?>.from(json["genera"]!.map((x) => Genus.fromJson(x))),
-        generation: Form.fromJson(json["generation"]),
-        growthRate: Form.fromJson(json["growth_rate"]),
-        habitat: Form.fromJson(json["habitat"]),
+        generation: json["generation"] == null
+            ? null
+            : Form.fromJson(json["generation"]),
+        growthRate: json["growth_rate"] == null
+            ? null
+            : Form.fromJson(json["growth_rate"]),
+        habitat:
+            json["habitat"] == null ? null : Form.fromJson(json["habitat"]),
         hasGenderDifferences: json["has_gender_differences"],
         hatchCounter: json["hatch_counter"],
         id: json["id"],
@@ -328,7 +335,7 @@ class Species {
             ? []
             : List<PokedexNumber?>.from(
                 json["pokedex_numbers"]!.map((x) => PokedexNumber.fromJson(x))),
-        shape: Form.fromJson(json["shape"]),
+        shape: json["shape"] == null ? null : Form.fromJson(json["shape"]),
         varieties: json["varieties"] == null
             ? []
             : List<Variety?>.from(

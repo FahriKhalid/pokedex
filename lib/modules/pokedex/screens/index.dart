@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:pokedex/controllers/pokedex/PokedexController.dart';
 import 'package:pokedex/models/list_pokemon.dart';
@@ -67,6 +69,7 @@ class Pokedex extends GetView<PokedexController> {
                           itemBuilder: (context, index) {
                             Result pokemon =
                                 pokedexController.listPokedex[index]!;
+
                             return ListGridPokedex(item: pokemon);
                           },
                           itemCount: pokedexController.listPokedex.length,

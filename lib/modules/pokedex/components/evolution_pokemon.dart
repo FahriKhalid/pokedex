@@ -8,6 +8,7 @@ import 'package:pokedex/controllers/pokedex/EvolutionController.dart';
 import 'package:pokedex/controllers/pokedex/PokemonController.dart';
 import 'package:pokedex/models/evolution.dart';
 import 'package:pokedex/models/pokemon.dart';
+import 'package:pokedex/utils/color.dart';
 import 'package:pokedex/utils/utils.dart';
 
 class Evolution extends GetView<EvolutionController> {
@@ -24,7 +25,9 @@ class Evolution extends GetView<EvolutionController> {
         builder: (context, AsyncSnapshot snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return Center(
-              child: CircularProgressIndicator(),
+              child: CircularProgressIndicator(
+                color: ColorPokemon.set("${pokemon.species!.color!.name}"),
+              ),
             );
           }
 

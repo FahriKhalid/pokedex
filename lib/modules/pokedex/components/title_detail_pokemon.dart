@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:pokedex/models/pokemon.dart';
 import 'package:pokedex/utils/utils.dart';
-
 
 class TitleDetailPokemon extends StatelessWidget {
   const TitleDetailPokemon({
@@ -22,29 +22,41 @@ class TitleDetailPokemon extends StatelessWidget {
         children: [
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            //crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      Utils.toCapitalized("${pokemon.name}"),
+                      style: TextStyle(
+                          fontSize: 30,
+                          fontWeight: FontWeight.w700,
+                          color: Colors.white),
+                    ),
+                    SizedBox(height: 5),
+                    Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: mywidgets)
+                  ],
+                ),
+              ),
               Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
                   Text(
-                    Utils.toCapitalized("${pokemon.name}"),
+                    '#00${pokemon.id}',
                     style: TextStyle(
-                        fontSize: 30,
-                        fontWeight: FontWeight.w700,
-                        color: Colors.white),
+                        color: Colors.white,
+                        fontWeight: FontWeight.w600,
+                        fontSize: 17),
                   ),
-                  SizedBox(height: 5),
-                  Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: mywidgets)
+                  Text(
+                    "${pokemon.species?.genera?[7]?.genus}",
+                    style: TextStyle(color: Colors.white54, fontSize: 16),
+                  ),
                 ],
-              ),
-              Text(
-                '#00${pokemon.id}',
-                style: TextStyle(
-                    color: Colors.white,
-                    fontWeight: FontWeight.w600,
-                    fontSize: 17),
               ),
             ],
           ),

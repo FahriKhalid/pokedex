@@ -24,26 +24,24 @@ class About extends GetView<PokemonController> {
       egg_groups.add(element?.name);
     }
 
+    var desc = pokemon.species?.flavorTextEntries?[0]!.flavorText;
+    var desc2 = pokemon.species?.flavorTextEntries?[2]!.flavorText;
+
     return Container(
       child: SingleChildScrollView(
-        padding: EdgeInsets.only(bottom: 20),
+        padding: EdgeInsets.only(bottom: 20, left: 25, right: 25),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            SizedBox(height: 20),
+            Text(
+                "${desc!.replaceAll("\n", " ") + " " + desc2!.replaceAll("\n", " ")}"),
             SizedBox(height: 10),
             ListAbout(title: "Seed", value: pokemon.species!.genera![7]!.genus),
             ListAbout(title: "Height", value: pokemon.height.toString()),
             ListAbout(title: "Weight", value: pokemon.weight.toString()),
             ListAbout(title: "Abilities", value: abilities.join(", ")),
             SizedBox(height: 30),
-            Text(
-              "Breeding",
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
-            ),
-            ListAbout(
-                title: "Gender", value: pokemon.species!.genera![7]!.genus),
-            ListAbout(title: "Egg Groups", value: egg_groups.join(", ")),
-            ListAbout(title: "Egg Cycle", value: pokemon.weight.toString()),
           ],
         ),
       ),

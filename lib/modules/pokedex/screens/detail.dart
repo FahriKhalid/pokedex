@@ -8,6 +8,7 @@ import 'package:pokedex/modules/pokedex/components/stats_pokemon.dart';
 import 'package:pokedex/modules/pokedex/components/title_detail_pokemon.dart';
 import 'package:pokedex/utils/color.dart';
 import 'package:pokedex/modules/pokedex/components/about_pokemon.dart';
+import 'package:pokedex/modules/pokedex/components/moves_pokemon.dart';
 
 class DetailPokemon extends GetView<PokedexController> {
   final Pokemon pokemon = Get.arguments;
@@ -72,15 +73,6 @@ class DetailPokemon extends GetView<PokedexController> {
               top: 180,
               child: Opacity(
                 opacity: 0.2,
-                // child: RotationTransition(
-                //   turns: _animation,
-                //   child: Image.asset(
-                //     width: Get.width - 130,
-                //     'assets/images/background/bg.png',
-                //     fit: BoxFit.contain,
-                //   ),
-                // ),
-
                 child: Image.asset(
                   width: Get.width - 130,
                   'assets/images/background/bg.png',
@@ -101,7 +93,7 @@ class DetailPokemon extends GetView<PokedexController> {
               height: Get.height / 2 + 15,
             ),
             ImagePokemon(pokemon: pokemon),
-            TabPokemon(),
+            TabPokemon(pokemon: pokemon),
           ],
         ),
       ),
@@ -112,7 +104,10 @@ class DetailPokemon extends GetView<PokedexController> {
 class TabPokemon extends StatelessWidget {
   const TabPokemon({
     Key? key,
+    required this.pokemon,
   }) : super(key: key);
+
+  final Pokemon pokemon;
 
   @override
   Widget build(BuildContext context) {
@@ -120,7 +115,7 @@ class TabPokemon extends StatelessWidget {
       height: Get.height / 2,
       width: Get.width,
       child: Padding(
-        padding: const EdgeInsets.only(top: 14, left: 25, right: 25),
+        padding: const EdgeInsets.only(top: 14),
         child: DefaultTabController(
           length: 4,
           initialIndex: 0,
@@ -132,7 +127,8 @@ class TabPokemon extends StatelessWidget {
                 isScrollable: true,
                 unselectedLabelColor: Colors.grey,
                 labelColor: Colors.black,
-                indicatorColor: Colors.black,
+                indicatorColor:
+                    ColorPokemon.set("${pokemon.species!.color!.name}"),
                 tabs: [
                   Tab(
                     height: 70,
@@ -157,9 +153,7 @@ class TabPokemon extends StatelessWidget {
                   About(),
                   Stats(),
                   Evolution(),
-                  Center(
-                    child: Text("data"),
-                  ),
+                  Moves(),
                 ]),
               ),
             ],
@@ -183,15 +177,18 @@ class ImagePokemon extends StatelessWidget {
     return Positioned(
       top: (Get.height / 2) - 600,
       bottom: 0,
-      child: CachedNetworkImage(
-        width: (Get.width / 2) + 60,
-        imageUrl: "${pokemon.sprites!.other!.officialArtwork!.frontDefault}",
-        placeholder: (context, url) {
-          return Container();
-        },
-        errorWidget: (context, url, error) {
-          return Container();
-        },
+      child: Hero(
+        tag: 1,
+        child: CachedNetworkImage(
+          width: (Get.width / 2) + 60,
+          imageUrl: "${pokemon.sprites!.other!.officialArtwork!.frontDefault}",
+          placeholder: (context, url) {
+            return Container();
+          },
+          errorWidget: (context, url, error) {
+            return Container();
+          },
+        ),
       ),
     );
   }

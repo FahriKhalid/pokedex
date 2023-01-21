@@ -18,7 +18,7 @@ class PokedexController extends GetxController {
 
     try {
       if (link == null) {
-        url = Uri.parse(endpoint + "pokemon");
+        url = Uri.parse(endpoint + "pokemon?limit=1000");
       } else {
         url = Uri.parse(link);
       }
@@ -47,7 +47,6 @@ class PokedexController extends GetxController {
     scrollController.addListener(() async {
       if (scrollController.position.pixels ==
           scrollController.position.maxScrollExtent) {
-        log("${pokedex.next}");
         isNextLoading.value = true;
         await get(pokedex.next);
       }

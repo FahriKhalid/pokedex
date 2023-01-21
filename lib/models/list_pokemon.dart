@@ -1,3 +1,5 @@
+import 'package:pokedex/models/pokemon.dart';
+
 class ListPokemon {
   ListPokemon({
     this.count,
@@ -35,18 +37,22 @@ class Result {
   Result({
     this.name,
     this.url,
+    //this.pokemon,
   });
 
   String? name;
   String? url;
+  //Pokemon? pokemon;
 
   factory Result.fromJson(Map<String, dynamic> json) => Result(
         name: json["name"],
         url: json["url"],
+        //pokemon: null
       );
 
   Map<String, dynamic> toJson() => {
         "name": name,
         "url": url,
+        //"pokemon" : pokemon!.toJson()
       };
 }

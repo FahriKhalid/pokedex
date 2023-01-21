@@ -18,6 +18,7 @@ class ListGridPokedex extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     PokemonController pokemonController = Get.find();
+    List<Widget> mywidgets = [];
 
     return FutureBuilder<Pokemon>(
       future: pokemonController.get("${item.url}"),

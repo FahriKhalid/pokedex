@@ -28,7 +28,7 @@ class Stats extends GetView<PokemonController> {
 
     return Container(
       child: SingleChildScrollView(
-        padding: EdgeInsets.only(bottom: 20),
+        padding: EdgeInsets.only(bottom: 20, left: 25, right: 25),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: stats_widget,

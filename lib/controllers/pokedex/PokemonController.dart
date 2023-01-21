@@ -19,6 +19,10 @@ class PokemonController extends GetxController {
 
       Pokemon pokemon = Pokemon.fromJson(data);
 
+      if (pokemon.name == "Grotle") {
+        log("GROTLE = ${pokemon.toJson()}");
+      }
+
       if (data.isNotEmpty) {
         Uri urlSpecies = Uri.parse('${endpoint}pokemon-species/${pokemon.id}');
         var resSpecies = await http.get(urlSpecies);
